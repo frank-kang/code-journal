@@ -1,0 +1,39 @@
+.container {
+  background-color: lightgray;
+}
+
+.header-container {
+  width: 100%;
+  background-color: purple;
+  color: white;
+}
+
+.image {
+  width: 24em;
+}
+
+.text-input {
+  border: lightgray solid;
+  border-radius: 6px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.notes {
+  width: 100%;
+  border: lightgray solid;
+  border-radius: 6px;
+  height: 10em;
+}
+
+.button-wrapper {
+  display: flex;
+}
+
+.save-button {
+  margin-left: auto;
+  height: 2em;
+  border: none;
+  background-color: purple;
+  color: white;
+}
