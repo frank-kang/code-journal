@@ -1,10 +1,10 @@
 header {
-  background-color: purple;
+  background-color: rgb(76, 36, 116);
 }
 
 .header-container {
   width: 100%;
-  background-color: purple;
+  background-color: rgb(76, 36, 116);
   color: white;
   height: 3em;
   align-items: center;
@@ -23,15 +23,20 @@ header {
 }
 
 .text-input {
-  border: lightgray solid;
+  border: rgb(238, 238, 238) solid;
   border-radius: 6px;
   width: 100%;
   margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.photo-url-label {
+  display: block;
 }
 
 .notes {
   width: 100%;
-  border: lightgray solid;
+  border: rgb(238, 238, 238) solid;
   border-radius: 6px;
   height: 10em;
 }
@@ -44,6 +49,7 @@ header {
   margin-left: auto;
   height: 2em;
   border: none;
-  background-color: purple;
+  background-color: rgb(76, 36, 116);
   color: white;
+  border-radius: 3px;
 }
