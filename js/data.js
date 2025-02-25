@@ -1,5 +1,5 @@
 'use strict';
-const data = {
+let data = {
   view: 'entry-form',
   entries: [],
   editing: null,
@@ -14,9 +14,22 @@ $idImagUrl?.addEventListener('input', () => {
   }
   $image.src = $idImagUrl.value;
 });
+function readJournal() {
+  const journalStorage = localStorage.getItem('journal-storage');
+  if (!journalStorage) {
+    return data;
+  }
+  const journalEntry = JSON.parse(journalStorage);
+  return journalEntry;
+}
+function writeJournal() {
+  const journalJSON = JSON.stringify(data);
+  localStorage.setItem('journal-storage', journalJSON);
+}
 let nextEntryId;
 $idJournalEntry.addEventListener('submit', (event) => {
   event.preventDefault();
+  data = readJournal();
   const $formElements = $idJournalEntry.elements;
   nextEntryId = data.nextEntryId;
   const formObject = {};
@@ -32,7 +45,7 @@ $idJournalEntry.addEventListener('submit', (event) => {
   });
   nextEntryId++;
   data.nextEntryId = nextEntryId;
-  console.log(data);
+  writeJournal();
   $image.src = 'images/placeholder-image-square.jpg';
   $idJournalEntry.reset();
 });

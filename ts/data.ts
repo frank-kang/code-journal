@@ -1,11 +1,11 @@
 interface Data {
-  view: string;
+  view: any;
   entries: any[];
-  editing: null | string;
-  nextEntryId: number;
+  editing: any;
+  nextEntryId: any;
 }
 
-const data: Data = {
+let data: Data = {
   view: 'entry-form',
   entries: [],
   editing: null,
@@ -37,9 +37,25 @@ interface FormObject {
   photo?: string;
   notes?: string;
 }
+
+function readJournal(): Data {
+  const journalStorage = localStorage.getItem('journal-storage');
+  if (!journalStorage) {
+    return data;
+  }
+  const journalEntry = JSON.parse(journalStorage);
+  return journalEntry;
+}
+
+function writeJournal(): void {
+  const journalJSON = JSON.stringify(data);
+  localStorage.setItem('journal-storage', journalJSON);
+}
+
 let nextEntryId: number;
 $idJournalEntry.addEventListener('submit', (event: Event) => {
   event.preventDefault();
+  data = readJournal();
   const $formElements = $idJournalEntry.elements as FormElements;
   nextEntryId = data.nextEntryId;
   const formObject: FormObject = {};
@@ -53,10 +69,9 @@ $idJournalEntry.addEventListener('submit', (event: Event) => {
     photo: formObject.photo,
     notes: formObject.notes,
   });
-
   nextEntryId++;
   data.nextEntryId = nextEntryId;
-  console.log(data);
+  writeJournal();
   $image.src = 'images/placeholder-image-square.jpg';
   $idJournalEntry.reset();
 });
