@@ -1,11 +1,21 @@
-.container {
-  background-color: lightgray;
+header {
+  background-color: purple;
 }
 
 .header-container {
   width: 100%;
   background-color: purple;
   color: white;
+  height: 3em;
+  align-items: center;
+  justify-content: right;
+  margin: 0 auto;
+  padding-top: 0.001em;
+}
+
+.h2 {
+  margin: 0;
+  padding-top: 1em;
 }
 
 .image {
