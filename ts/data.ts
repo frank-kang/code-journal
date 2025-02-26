@@ -21,7 +21,7 @@ function readData(): Data {
   return journalEntry;
 }
 
-function writeData(): void {
+function writeData(data: Data): void {
   const journalJSON = JSON.stringify(data);
   localStorage.setItem('journal-storage', journalJSON);
 }

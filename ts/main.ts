@@ -43,7 +43,7 @@ $idJournalEntry.addEventListener('submit', (event: Event) => {
   });
   nextEntryId++;
   data.nextEntryId = nextEntryId;
-  writeData();
+  writeData(data);
   $image.src = 'images/placeholder-image-square.jpg';
   $idJournalEntry.reset();
 });

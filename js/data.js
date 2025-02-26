@@ -13,7 +13,7 @@ function readData() {
   const journalEntry = JSON.parse(journalStorage);
   return journalEntry;
 }
-function writeData() {
+function writeData(data) {
   const journalJSON = JSON.stringify(data);
   localStorage.setItem('journal-storage', journalJSON);
 }
