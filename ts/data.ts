@@ -1,32 +1,31 @@
 interface Data {
   view: string;
   entries: object[];
-  editing: null | string;
+  editing: null;
   nextEntryId: number;
 }
 
-let data: Data = {
+/* let data: Data = {
   view: 'entry-form',
   entries: [],
   editing: null,
   nextEntryId: 1,
-};
+}; */
 
-data = readData();
+const data = readData();
 
 function readData(): Data {
   const journalStorage = localStorage.getItem('journal-storage');
-  if (!journalStorage) {
-    data = {
+  if (journalStorage) {
+    const journalEntry = JSON.parse(journalStorage);
+    return journalEntry;
+  } else {
+    return {
       view: 'entry-form',
       entries: [],
       editing: null,
       nextEntryId: 1,
     };
-    return data;
-  } else {
-    const journalEntry = JSON.parse(journalStorage);
-    return journalEntry;
   }
 }
 
