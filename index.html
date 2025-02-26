@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -17,10 +17,62 @@
   </head>
   <body>
     <header>
-      <div class="container"></div>
+      <div class="header-container">
+        <div class="container">
+          <h2>Code Journal</h2>
+        </div>
+      </div>
     </header>
+
     <main class="container">
-      <div data-view="entry-form"></div>
+      <h2 class="h2">New Entry</h2>
+      <div data-view="entry-form">
+        <form id="journal-entry">
+          <div class="row">
+            <div class="column-half">
+              <img
+                class="image"
+                src="images/placeholder-image-square.jpg"
+                alt="place holder image" />
+            </div>
+            <div class="column-half">
+              <label class="title-label" for="title">Title</label>
+              <input
+                class="text-input title"
+                type="text"
+                name="title"
+                id="title"
+                required />
+
+              <label class="photo-url-label" for="photo-url">Photo URL</label>
+              <input
+                class="text-input photo"
+                type="text"
+                name="photo"
+                id="photo-url"
+                required />
+            </div>
+          </div>
+          <div class="row">
+            <div class="column-full">
+              <label class="notes-label" for="notes">Notes</label>
+
+              <textarea
+                name="notes"
+                id="notes"
+                class="notes"
+                required></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column-full">
+              <div class="button-wrapper">
+                <button class="save-button">SAVE</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
       <div data-view="entries" class="hidden"></div>
     </main>
     <script src="js/data.js"></script>

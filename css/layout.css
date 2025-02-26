@@ -2,6 +2,10 @@
   display: none !important;
 }
 
+body {
+  background-color: rgb(238, 238, 238);
+}
+
 .container {
   max-width: 575px;
   margin: 0 auto;
@@ -16,16 +20,23 @@
 .column-full,
 .column-half {
   width: 100%;
+  flex-basis: 100%;
+
+  @media (width >= 576px) {
+    &.column-half {
+      flex-basis: 50%;
+    }
+  }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (width >= 768px) {
   .container {
     max-width: 900px;
   }
 
   .column-full,
   .column-half {
-    padding: 0 0.75rem;
+    padding: 0;
   }
 
   .column-half {

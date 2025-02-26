@@ -1,0 +1,56 @@
+header {
+  background-color: rgb(76, 36, 116);
+}
+
+.header-container {
+  width: 100%;
+  background-color: rgb(76, 36, 116);
+  color: white;
+  height: 3em;
+  align-items: center;
+  justify-content: right;
+  margin: 0 auto;
+  padding-top: 0.001em;
+}
+
+.h2 {
+  margin: 0;
+  padding-top: 1em;
+}
+
+.image {
+  width: 100%;
+  padding-right: 0.5em;
+}
+
+.text-input {
+  border: rgb(238, 238, 238) solid;
+  border-radius: 6px;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.photo-url-label {
+  display: block;
+}
+
+.notes {
+  width: 100%;
+  border: rgb(238, 238, 238) solid;
+  border-radius: 6px;
+  height: 10em;
+}
+
+.button-wrapper {
+  display: flex;
+}
+
+.save-button {
+  margin-left: auto;
+  height: 2em;
+  border: none;
+  background-color: rgb(76, 36, 116);
+  color: white;
+  border-radius: 3px;
+}
