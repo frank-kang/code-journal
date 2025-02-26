@@ -5,13 +5,6 @@ interface Data {
   nextEntryId: number;
 }
 
-/* let data: Data = {
-  view: 'entry-form',
-  entries: [],
-  editing: null,
-  nextEntryId: 1,
-}; */
-
 const data = readData();
 
 function readData(): Data {
