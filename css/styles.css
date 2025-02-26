@@ -19,7 +19,8 @@ header {
 }
 
 .image {
-  width: 24em;
+  width: 100%;
+  padding-right: 0.5em;
 }
 
 .text-input {

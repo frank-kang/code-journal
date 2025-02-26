@@ -1,33 +1,24 @@
 'use strict';
-const $idImagUrl = document.querySelector('#photo-url');
+const $idImageUrl = document.querySelector('#photo-url');
 const $image = document.querySelector('.image');
 const $idJournalEntry = document.querySelector('#journal-entry');
-$idImagUrl?.addEventListener('input', () => {
-  if (!$idImagUrl) {
+$idImageUrl?.addEventListener('input', () => {
+  if (!$idImageUrl) {
     $image.src = 'images/placeholder-image-square.jpg';
   }
-  $image.src = $idImagUrl.value;
+  $image.src = $idImageUrl.value;
 });
-let nextEntryId;
 $idJournalEntry.addEventListener('submit', (event) => {
   event.preventDefault();
-  const data = readData();
   const $formElements = $idJournalEntry.elements;
-  nextEntryId = data.nextEntryId;
   const formObject = {};
   formObject.entryId = data.nextEntryId;
   formObject.title = $formElements.title.value;
   formObject.photo = $formElements.photo.value;
   formObject.notes = $formElements.notes.value;
-  data.entries.unshift({
-    entryId: formObject.entryId,
-    title: formObject.title,
-    photo: formObject.photo,
-    notes: formObject.notes,
-  });
-  nextEntryId++;
-  data.nextEntryId = nextEntryId;
-  writeData(data);
+  data.entries.unshift(formObject);
+  data.nextEntryId++;
+  writeData();
   $image.src = 'images/placeholder-image-square.jpg';
   $idJournalEntry.reset();
 });

@@ -1,27 +1,36 @@
 interface Data {
-  view: any;
-  entries: any[];
-  editing: any;
-  nextEntryId: any;
+  view: string;
+  entries: object[];
+  editing: null | string;
+  nextEntryId: number;
 }
 
-const data: Data = {
+let data: Data = {
   view: 'entry-form',
   entries: [],
   editing: null,
   nextEntryId: 1,
 };
 
+data = readData();
+
 function readData(): Data {
   const journalStorage = localStorage.getItem('journal-storage');
   if (!journalStorage) {
+    data = {
+      view: 'entry-form',
+      entries: [],
+      editing: null,
+      nextEntryId: 1,
+    };
     return data;
+  } else {
+    const journalEntry = JSON.parse(journalStorage);
+    return journalEntry;
   }
-  const journalEntry = JSON.parse(journalStorage);
-  return journalEntry;
 }
 
-function writeData(data: Data): void {
+function writeData(): void {
   const journalJSON = JSON.stringify(data);
   localStorage.setItem('journal-storage', journalJSON);
 }
