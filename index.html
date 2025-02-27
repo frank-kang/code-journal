@@ -25,7 +25,7 @@
     </header>
 
     <main class="container">
-      <div data-view="entry-form">
+      <div data-view="entry-form" class="">
         <h2 class="h2">New Entry</h2>
         <form id="journal-entry">
           <div class="row">
@@ -38,7 +38,7 @@
             <div class="column-half">
               <label class="title-label" for="title">Title</label>
               <input
-                class="text-input title"
+                class="text-input"
                 type="text"
                 name="title"
                 id="title"
@@ -73,15 +73,17 @@
           </div>
         </form>
       </div>
-      <div data-view="entries" class="hidden">
-        <div class="row">
+      <div data-view="entries" class="">
+        <div class="container"></div>
+        <div class="entries-top">
+        <h2 class="h2">Entries</h2>
+        <button class="new-button">NEW</button>
+        </div>
+        <p class="no-posts">No Posts Found</p>
           <ul class="journal-entries">
-            <li class="entry"></li>
-            <li class="entry"></li>
-            <li class="entry"></li>
           </ul>
         </div>
-      </div>
+        <div>
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
