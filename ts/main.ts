@@ -77,8 +77,12 @@ function renderEntry(entry: FormObject): HTMLLIElement {
   return $tagLi;
 }
 
-function hideNoPost(): void {
-  $classNoPosts.className = 'no-posts hidden';
+function toggleEntries(): void {
+  if ($classNoPosts.classList.contains('hidden')) {
+    $classNoPosts.classList.remove('hidden');
+  } else {
+    $classNoPosts.classList.add('hidden');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -88,5 +92,5 @@ document.addEventListener('DOMContentLoaded', () => {
     const $classJournalEntries = document.querySelector('.journal-entries');
     $classJournalEntries?.appendChild(li);
   }
-  hideNoPost();
+  toggleEntries();
 });
