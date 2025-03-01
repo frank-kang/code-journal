@@ -19,6 +19,9 @@ const $idJournalEntry = document.querySelector(
 const $classNoPosts = document.querySelector(
   '.no-posts',
 ) as HTMLParagraphElement;
+const $dataViewEntryForm = document.querySelector("[data-view ='entry-form']");
+const $dataViewEntries = document.querySelector("[data-view ='entry']");
+
 $idImageUrl?.addEventListener('input', () => {
   if (!$idImageUrl) {
     $image.src = 'images/placeholder-image-square.jpg';
@@ -38,6 +41,7 @@ $idJournalEntry.addEventListener('submit', (event: Event) => {
   data.nextEntryId++;
   writeData();
   $image.src = 'images/placeholder-image-square.jpg';
+
   $idJournalEntry.reset();
 });
 
@@ -77,20 +81,33 @@ function renderEntry(entry: FormObject): HTMLLIElement {
   return $tagLi;
 }
 
-function toggleEntries(): void {
-  if ($classNoPosts.classList.contains('hidden')) {
-    $classNoPosts.classList.remove('hidden');
-  } else {
-    $classNoPosts.classList.add('hidden');
-  }
+function noEntries(): void {
+  $classNoPosts.classList.remove('hidden');
+}
+
+function showEntries(): void {
+  $classNoPosts.classList.add('hidden');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (data.nextEntryId === 1) {
+    noEntries();
+    return;
+  }
+  showEntries();
   for (const i of data.entries) {
-    const entry = i;
-    const li = renderEntry(entry);
+    const li = renderEntry(i);
     const $classJournalEntries = document.querySelector('.journal-entries');
     $classJournalEntries?.appendChild(li);
   }
-  toggleEntries();
 });
+
+function viewSwap(view: string): void {
+  data.view = view;
+  if (data.view === 'entry-form') {
+    $dataViewEntryForm?.classList.remove('hidden');
+  } else {
+    $dataViewEntryForm?.classList.add('hidden');
+    $dataViewEntries?.classList.remove('hidden');
+  }
+}
