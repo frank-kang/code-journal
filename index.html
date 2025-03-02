@@ -26,7 +26,7 @@
     <main class="container">
       <div data-view="entry-form" class="entry-form">
         <h2 class="h2">New Entry</h2>
-        <form id="journal-entry">
+        <form id="journal-entry" name="journal-entry">
           <div class="row">
             <div class="column-half">
               <img
@@ -41,14 +41,14 @@
                 type="text"
                 name="title"
                 id="title"
-                required />
+                required="" />
               <label class="photo-url-label" for="photo-url">Photo URL</label>
               <input
                 class="text-input photo"
                 type="text"
                 name="photo"
                 id="photo-url"
-                required />
+                required="" />
             </div>
           </div>
           <div class="row">
@@ -58,7 +58,7 @@
                 name="notes"
                 id="notes"
                 class="notes"
-                required></textarea>
+                required=""></textarea>
             </div>
           </div>
           <div class="row">
@@ -73,14 +73,12 @@
       <div data-view="entries" class="entries">
         <div class="container"></div>
         <div class="entries-top">
-        <h2 class="h2">Entries</h2>
-        <button class="new-button">NEW</button>
+          <h2 class="h2">Entries</h2>
+          <button class="new-button">NEW</button>
         </div>
         <p class="no-posts">No Posts Found</p>
-          <ul class="journal-entries">
-          </ul>
-        </div>
-        <div>
+        <ul class="journal-entries"></ul>
+      </div>
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
