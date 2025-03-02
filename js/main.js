@@ -3,6 +3,8 @@ const $idImageUrl = document.querySelector('#photo-url');
 const $image = document.querySelector('.image');
 const $idJournalEntry = document.querySelector('#journal-entry');
 const $classNoPosts = document.querySelector('.no-posts');
+const $dataViewEntryForm = document.querySelector('.entry-form');
+const $dataViewEntries = document.querySelector('.entries');
 $idImageUrl?.addEventListener('input', () => {
     if (!$idImageUrl) {
         $image.src = 'images/placeholder-image-square.jpg';
@@ -58,15 +60,33 @@ function renderEntry(entry) {
     $divClassColumnHalfText.appendChild($pClassEntryNote);
     return $tagLi;
 }
-function hideNoPost() {
-    $classNoPosts.className = 'no-posts hidden';
+function noEntries() {
+    $classNoPosts.classList.remove('hidden');
+}
+function showEntries() {
+    $classNoPosts.classList.add('hidden');
 }
 document.addEventListener('DOMContentLoaded', () => {
+    if (data.nextEntryId === 1) {
+        noEntries();
+        return;
+    }
+    showEntries();
     for (const i of data.entries) {
-        const entry = i;
-        const li = renderEntry(entry);
+        const li = renderEntry(i);
         const $classJournalEntries = document.querySelector('.journal-entries');
         $classJournalEntries?.appendChild(li);
     }
-    hideNoPost();
 });
+function viewSwap(view) {
+    data.view = view;
+    if (data.view === 'entry-form') {
+        $dataViewEntryForm?.classList.remove('hidden');
+        $dataViewEntries?.classList.add('hidden');
+    }
+    else {
+        $dataViewEntryForm?.classList.add('hidden');
+        $dataViewEntries?.classList.remove('hidden');
+    }
+}
+viewSwap('entries');

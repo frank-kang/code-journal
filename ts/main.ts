@@ -19,8 +19,8 @@ const $idJournalEntry = document.querySelector(
 const $classNoPosts = document.querySelector(
   '.no-posts',
 ) as HTMLParagraphElement;
-const $dataViewEntryForm = document.querySelector("[data-view ='entry-form']");
-const $dataViewEntries = document.querySelector("[data-view ='entry']");
+const $dataViewEntryForm = document.querySelector('.entry-form');
+const $dataViewEntries = document.querySelector('.entries');
 
 $idImageUrl?.addEventListener('input', () => {
   if (!$idImageUrl) {
@@ -106,8 +106,11 @@ function viewSwap(view: string): void {
   data.view = view;
   if (data.view === 'entry-form') {
     $dataViewEntryForm?.classList.remove('hidden');
+    $dataViewEntries?.classList.add('hidden');
   } else {
     $dataViewEntryForm?.classList.add('hidden');
     $dataViewEntries?.classList.remove('hidden');
   }
 }
+
+viewSwap('entries');
