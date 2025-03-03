@@ -21,6 +21,7 @@ const $classNoPosts = document.querySelector(
 ) as HTMLParagraphElement;
 const $dataViewEntryForm = document.querySelector('.entry-form');
 const $dataViewEntries = document.querySelector('.entries');
+const $classEntriesAnchor = document.querySelector('.entries-anchor');
 
 $idImageUrl?.addEventListener('input', () => {
   if (!$idImageUrl) {
@@ -113,4 +114,8 @@ function viewSwap(view: string): void {
   }
 }
 
-viewSwap('entries');
+$classEntriesAnchor?.addEventListener('click', (event: Event): void => {
+  event.preventDefault();
+  data.view = 'entries';
+  viewSwap(data.view);
+});
