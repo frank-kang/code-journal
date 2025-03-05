@@ -6,6 +6,7 @@ const $classNoPosts = document.querySelector('.no-posts');
 const $dataViewEntryForm = document.querySelector('.entry-form');
 const $dataViewEntries = document.querySelector('.entries');
 const $classEntriesAnchor = document.querySelector('.entries-anchor');
+const $classNewEntryButton = document.querySelector('.new-button');
 $idImageUrl?.addEventListener('input', () => {
   if (!$idImageUrl) {
     $image.src = 'images/placeholder-image-square.jpg';
@@ -91,5 +92,9 @@ function viewSwap(view) {
 $classEntriesAnchor?.addEventListener('click', (event) => {
   event.preventDefault();
   data.view = 'entries';
+  viewSwap(data.view);
+});
+$classNewEntryButton?.addEventListener('click', () => {
+  data.view = 'entry-form';
   viewSwap(data.view);
 });

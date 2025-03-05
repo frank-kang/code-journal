@@ -22,6 +22,7 @@ const $classNoPosts = document.querySelector(
 const $dataViewEntryForm = document.querySelector('.entry-form');
 const $dataViewEntries = document.querySelector('.entries');
 const $classEntriesAnchor = document.querySelector('.entries-anchor');
+const $classNewEntryButton = document.querySelector('.new-button');
 
 $idImageUrl?.addEventListener('input', () => {
   if (!$idImageUrl) {
@@ -117,5 +118,10 @@ function viewSwap(view: string): void {
 $classEntriesAnchor?.addEventListener('click', (event: Event): void => {
   event.preventDefault();
   data.view = 'entries';
+  viewSwap(data.view);
+});
+
+$classNewEntryButton?.addEventListener('click', (): void => {
+  data.view = 'entry-form';
   viewSwap(data.view);
 });
