@@ -7,6 +7,7 @@ const $dataViewEntryForm = document.querySelector('.entry-form');
 const $dataViewEntries = document.querySelector('.entries');
 const $classEntriesAnchor = document.querySelector('.entries-anchor');
 const $classNewEntry = document.querySelector('.new-anchor');
+const $classJournalEntries = document.querySelector('.journal-entries');
 $idImageUrl?.addEventListener('input', () => {
   if (!$idImageUrl) {
     $image.src = 'images/placeholder-image-square.jpg';
@@ -26,6 +27,11 @@ $idJournalEntry.addEventListener('submit', (event) => {
   writeData();
   $image.src = 'images/placeholder-image-square.jpg';
   $idJournalEntry.reset();
+  for (const i of data.entries) {
+    const li = renderEntry(i);
+    $classJournalEntries?.appendChild(li);
+  }
+  viewSwap('entries');
 });
 function renderEntry(entry) {
   const $tagLi = document.createElement('li');
@@ -73,15 +79,15 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
   showEntries();
+  data.view = 'entries';
   for (const i of data.entries) {
     const li = renderEntry(i);
-    const $classJournalEntries = document.querySelector('.journal-entries');
     $classJournalEntries?.appendChild(li);
   }
+  viewSwap(data.view);
 });
 function viewSwap(view) {
   data.view = view;
-  console.log(data.view);
   if (data.view === 'entry-form') {
     $dataViewEntryForm?.classList.remove('hidden');
     $dataViewEntries?.classList.add('hidden');
