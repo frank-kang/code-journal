@@ -6,7 +6,7 @@ const $classNoPosts = document.querySelector('.no-posts');
 const $dataViewEntryForm = document.querySelector('.entry-form');
 const $dataViewEntries = document.querySelector('.entries');
 const $classEntriesAnchor = document.querySelector('.entries-anchor');
-const $classNewEntryButton = document.querySelector('.new-button');
+const $classNewEntry = document.querySelector('.new-anchor');
 $idImageUrl?.addEventListener('input', () => {
   if (!$idImageUrl) {
     $image.src = 'images/placeholder-image-square.jpg';
@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 function viewSwap(view) {
   data.view = view;
+  console.log(data.view);
   if (data.view === 'entry-form') {
     $dataViewEntryForm?.classList.remove('hidden');
     $dataViewEntries?.classList.add('hidden');
@@ -94,7 +95,7 @@ $classEntriesAnchor?.addEventListener('click', (event) => {
   data.view = 'entries';
   viewSwap(data.view);
 });
-$classNewEntryButton?.addEventListener('click', () => {
-  data.view = 'entry-form';
-  viewSwap(data.view);
+$classNewEntry?.addEventListener('click', (event) => {
+  event.preventDefault();
+  viewSwap('entry-form');
 });
