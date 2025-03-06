@@ -27,10 +27,9 @@ $idJournalEntry.addEventListener('submit', (event) => {
   writeData();
   $image.src = 'images/placeholder-image-square.jpg';
   $idJournalEntry.reset();
-  for (const i of data.entries) {
-    const li = renderEntry(i);
-    $classJournalEntries?.appendChild(li);
-  }
+  const li = renderEntry(formObject);
+  const $tagFirstLi = document.querySelector('li');
+  $classJournalEntries?.insertBefore(li, $tagFirstLi);
   viewSwap('entries');
 });
 function renderEntry(entry) {
@@ -78,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
     noEntries();
     return;
   }
-  showEntries();
   data.view = 'entries';
   for (const i of data.entries) {
     const li = renderEntry(i);
@@ -91,7 +89,9 @@ function viewSwap(view) {
   if (data.view === 'entry-form') {
     $dataViewEntryForm?.classList.remove('hidden');
     $dataViewEntries?.classList.add('hidden');
+    noEntries();
   } else {
+    showEntries();
     $dataViewEntryForm?.classList.add('hidden');
     $dataViewEntries?.classList.remove('hidden');
   }
