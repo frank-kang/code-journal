@@ -28,8 +28,10 @@ $idJournalEntry.addEventListener('submit', (event) => {
   $image.src = 'images/placeholder-image-square.jpg';
   $idJournalEntry.reset();
   const li = renderEntry(formObject);
-  const $tagFirstLi = document.querySelector('li');
-  $classJournalEntries?.insertBefore(li, $tagFirstLi);
+  /* const $tagFirstLi = document.querySelector('li');
+    $classJournalEntries?.insertBefore(li, $tagFirstLi); */
+  const $ul = document.querySelector('ul');
+  $ul?.prepend(li);
   viewSwap('entries');
 });
 function renderEntry(entry) {
