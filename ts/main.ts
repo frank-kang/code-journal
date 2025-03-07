@@ -72,6 +72,8 @@ function renderEntry(entry: FormObject): HTMLLIElement {
   if (entry.title) {
     $pClassTitle.textContent = entry.title;
   }
+  const $sClassPen = document.createElement('i');
+  $sClassPen.className = 'fa fa-pencil';
   const $pClassEntryNote = document.createElement('p');
   $pClassEntryNote.className = 'entry-notes';
   if (entry.notes) {
@@ -82,6 +84,7 @@ function renderEntry(entry: FormObject): HTMLLIElement {
   $divClassColumnHalf.appendChild($classImage);
   $divClassRow.appendChild($divClassColumnHalfText);
   $divClassColumnHalfText.appendChild($pClassTitle);
+  $divClassColumnHalfText.appendChild($sClassPen);
   $divClassColumnHalfText.appendChild($pClassEntryNote);
   return $tagLi;
 }

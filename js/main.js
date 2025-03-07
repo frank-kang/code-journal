@@ -28,8 +28,6 @@ $idJournalEntry.addEventListener('submit', (event) => {
   $image.src = 'images/placeholder-image-square.jpg';
   $idJournalEntry.reset();
   const li = renderEntry(formObject);
-  /* const $tagFirstLi = document.querySelector('li');
-    $classJournalEntries?.insertBefore(li, $tagFirstLi); */
   const $ul = document.querySelector('ul');
   $ul?.prepend(li);
   viewSwap('entries');
@@ -55,6 +53,8 @@ function renderEntry(entry) {
   if (entry.title) {
     $pClassTitle.textContent = entry.title;
   }
+  const $sClassPen = document.createElement('i');
+  $sClassPen.className = 'fa fa-pencil';
   const $pClassEntryNote = document.createElement('p');
   $pClassEntryNote.className = 'entry-notes';
   if (entry.notes) {
@@ -65,6 +65,7 @@ function renderEntry(entry) {
   $divClassColumnHalf.appendChild($classImage);
   $divClassRow.appendChild($divClassColumnHalfText);
   $divClassColumnHalfText.appendChild($pClassTitle);
+  $divClassColumnHalfText.appendChild($sClassPen);
   $divClassColumnHalfText.appendChild($pClassEntryNote);
   return $tagLi;
 }
