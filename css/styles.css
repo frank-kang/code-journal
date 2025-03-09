@@ -39,7 +39,14 @@ h3,
 
 .fa {
   display: inline;
+  align-items: right;
+  cursor: pointer;
 }
+
+/* .dp-wrapper {
+  display: flex;
+  justify-content: space-between;
+} */
 
 .text-input {
   border: rgb(238, 238, 238) solid;

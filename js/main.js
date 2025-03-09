@@ -35,6 +35,7 @@ $idJournalEntry.addEventListener('submit', (event) => {
 function renderEntry(entry) {
   const $tagLi = document.createElement('li');
   $tagLi.className = 'entry';
+  $tagLi.setAttribute('data-entry-id', `${entry.entryId}`);
   const $divClassRow = document.createElement('div');
   $divClassRow.className = 'row';
   const $divClassColumnHalf = document.createElement('div');
@@ -107,4 +108,12 @@ $classEntriesAnchor?.addEventListener('click', (event) => {
 $classNewEntry?.addEventListener('click', (event) => {
   event.preventDefault();
   viewSwap('entry-form');
+});
+$classJournalEntries?.addEventListener('click', (event) => {
+  const pencil = document.querySelector('.fa-pencil');
+  if (event.target === pencil) {
+    pencil?.closest('li');
+    viewSwap('entry-form');
+    console.log(event);
+  }
 });

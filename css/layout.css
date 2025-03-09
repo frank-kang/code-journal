@@ -18,12 +18,14 @@ body {
 }
 
 .column-full,
-.column-half {
+.column-half,
+.dp-wrapper {
   width: 100%;
   flex-basis: 100%;
 
   @media (width >= 576px) {
-    &.column-half {
+    &.column-half,
+    .dp-wrapper {
       flex-basis: 50%;
     }
   }
