@@ -8,6 +8,9 @@ const $dataViewEntries = document.querySelector('.entries');
 const $classEntriesAnchor = document.querySelector('.entries-anchor');
 const $classNewEntry = document.querySelector('.new-anchor');
 const $classJournalEntries = document.querySelector('.journal-entries');
+const $classTextInput = document.querySelector('.text-input');
+const $idNotes = document.querySelector('#notes');
+const $classH2 = document.querySelector('.h2');
 $idImageUrl?.addEventListener('input', () => {
   if (!$idImageUrl) {
     $image.src = 'images/placeholder-image-square.jpg';
@@ -15,22 +18,42 @@ $idImageUrl?.addEventListener('input', () => {
   $image.src = $idImageUrl.value;
 });
 $idJournalEntry.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const $formElements = $idJournalEntry.elements;
-  const formObject = {};
-  formObject.entryId = data.nextEntryId;
-  formObject.title = $formElements.title.value;
-  formObject.photo = $formElements.photo.value;
-  formObject.notes = $formElements.notes.value;
-  data.entries.unshift(formObject);
-  data.nextEntryId++;
-  writeData();
-  $image.src = 'images/placeholder-image-square.jpg';
-  $idJournalEntry.reset();
-  const li = renderEntry(formObject);
-  const $ul = document.querySelector('ul');
-  $ul?.prepend(li);
-  viewSwap('entries');
+  if (data.editing === null) {
+    event.preventDefault();
+    const $formElements = $idJournalEntry.elements;
+    const formObject = {};
+    formObject.entryId = data.nextEntryId;
+    formObject.title = $formElements.title.value;
+    formObject.photo = $formElements.photo.value;
+    formObject.notes = $formElements.notes.value;
+    data.entries.unshift(formObject);
+    data.nextEntryId++;
+    writeData();
+    $image.src = 'images/placeholder-image-square.jpg';
+    $idJournalEntry.reset();
+    const li = renderEntry(formObject);
+    const $ul = document.querySelector('ul');
+    $ul?.prepend(li);
+    viewSwap('entries');
+  } else {
+    event.preventDefault();
+    const $formElements = $idJournalEntry.elements;
+    const formObject = {};
+    formObject.entryId = data.editing?.entryId;
+    formObject.title = $formElements.title.value;
+    formObject.photo = $formElements.photo.value;
+    formObject.notes = $formElements.notes.value;
+    const indexToUpdate = data.entries.length - formObject?.entryId;
+    data.entries.splice(Number(indexToUpdate), 1, formObject);
+    data.editing = null;
+    console.log(data);
+    writeData();
+    $idJournalEntry.reset();
+    const li = renderEntry(formObject);
+    const $ul = document.querySelector('ul');
+    $ul?.prepend(li);
+    viewSwap('entries');
+  }
 });
 function renderEntry(entry) {
   const $tagLi = document.createElement('li');
@@ -90,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 function viewSwap(view) {
   data.view = view;
+  writeData();
   if (data.view === 'entry-form') {
     $dataViewEntryForm?.classList.remove('hidden');
     $dataViewEntries?.classList.add('hidden');
@@ -111,13 +135,22 @@ $classNewEntry?.addEventListener('click', (event) => {
 });
 $classJournalEntries?.addEventListener('click', (event) => {
   const eventTarget = event.target;
-  console.log(eventTarget);
-  console.log(eventTarget?.tagName);
   if (eventTarget?.tagName === 'I') {
     const et = eventTarget;
     const closestLi = et.closest('.entry');
     if (!closestLi) throw new Error('closes Li does not exist');
     const id = closestLi?.dataset.entryId;
-    console.log(id);
+    const journalEntries = data.entries;
+    const matchingJournal = journalEntries.find(
+      (journal) => journal.entryId === Number(id),
+    );
+    data.editing = matchingJournal;
+    writeData();
+    viewSwap('entry-form');
   }
+  $image.src = data?.editing?.photo;
+  $classTextInput.value = data?.editing?.title;
+  $idImageUrl.value = data?.editing?.photo;
+  $idNotes.value = data?.editing?.notes;
+  $classH2.textContent = 'Edit Entry';
 });
