@@ -1,7 +1,7 @@
 interface Data {
   view: string;
   entries: object[];
-  editing: null;
+  editing: null | object;
   nextEntryId: number;
 }
 

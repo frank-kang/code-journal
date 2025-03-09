@@ -136,11 +136,14 @@ $classNewEntry?.addEventListener('click', (event: Event): void => {
 });
 
 $classJournalEntries?.addEventListener('click', (event: Event) => {
-  const pencil = document.querySelector('.fa-pencil');
-  if (event.target === pencil) {
-    pencil?.closest('li');
-
-    viewSwap('entry-form');
-    console.log(event);
+  const eventTarget = event.target as HTMLElement;
+  console.log(eventTarget);
+  console.log(eventTarget?.tagName);
+  if (eventTarget?.tagName === 'I') {
+    const et = eventTarget;
+    const closestLi = et.closest('.entry');
+    if (!closestLi) throw new Error('closes Li does not exist');
+    const id = closestLi?.dataset.entryId;
+    console.log(id);
   }
 });
