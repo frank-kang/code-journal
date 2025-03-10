@@ -35,16 +35,6 @@ $idImageUrl?.addEventListener('input', () => {
   $image.src = $idImageUrl.value;
 });
 
-function getElementByDataset(datasetName, datasetValue) {
-  const elements = document.querySelectorAll(`[data-${datasetName}]`);
-  for (const element of elements) {
-    if (element.dataset[datasetName] === String(datasetValue)) {
-      return element;
-    }
-  }
-  return null; // Return null if no element is found
-}
-
 $idJournalEntry.addEventListener('submit', (event: Event) => {
   if (data.editing === null) {
     event.preventDefault();
@@ -73,17 +63,19 @@ $idJournalEntry.addEventListener('submit', (event: Event) => {
     formObject.notes = $formElements.notes.value;
     const indexToUpdate = data.entries.length - formObject?.entryId;
     data.entries.splice(Number(indexToUpdate), 1, formObject);
-    data.editing = null;
-    console.log(data);
+
     writeData();
     $idJournalEntry.reset();
     const li = renderEntry(formObject);
-    const $ul = document.querySelector('ul');
-    $ul?.prepend(li);
-    const element = getElementByDataset('entry-id', String(formObject.entryId));
-    console.log(element);
+    const elements = document.querySelectorAll('.entry');
+    let element;
+    for (element of elements) {
+      if (element?.dataset?.entryId === String(data.editing?.entryId)) {
+        element?.replaceWith(li);
+      }
+    }
     viewSwap('entries');
-    element?.replaceWith(li);
+    data.editing = null;
   }
 });
 
@@ -188,8 +180,11 @@ $classJournalEntries?.addEventListener('click', (event: Event) => {
     viewSwap('entry-form');
   }
   $image.src = data?.editing?.photo;
+  if (!$classTextInput) throw new Error('Notes does not exist');
   $classTextInput.value = data?.editing?.title;
   $idImageUrl.value = data?.editing?.photo;
+  if (!$idNotes) throw new Error('Notes does not exist');
   $idNotes.value = data?.editing?.notes;
+  if (!$classH2) throw new Error('H2 does not exist');
   $classH2.textContent = 'Edit Entry';
 });
