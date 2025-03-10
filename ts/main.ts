@@ -35,6 +35,16 @@ $idImageUrl?.addEventListener('input', () => {
   $image.src = $idImageUrl.value;
 });
 
+function getElementByDataset(datasetName, datasetValue) {
+  const elements = document.querySelectorAll(`[data-${datasetName}]`);
+  for (const element of elements) {
+    if (element.dataset[datasetName] === String(datasetValue)) {
+      return element;
+    }
+  }
+  return null; // Return null if no element is found
+}
+
 $idJournalEntry.addEventListener('submit', (event: Event) => {
   if (data.editing === null) {
     event.preventDefault();
@@ -70,8 +80,10 @@ $idJournalEntry.addEventListener('submit', (event: Event) => {
     const li = renderEntry(formObject);
     const $ul = document.querySelector('ul');
     $ul?.prepend(li);
-
+    const element = getElementByDataset('entry-id', String(formObject.entryId));
+    console.log(element);
     viewSwap('entries');
+    element?.replaceWith(li);
   }
 });
 
