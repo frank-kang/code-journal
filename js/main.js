@@ -20,6 +20,9 @@ $idImageUrl?.addEventListener('input', () => {
 $idJournalEntry.addEventListener('submit', (event) => {
     if (data.editing === null) {
         event.preventDefault();
+        if (!$classH2)
+            throw new Error('H2 does not exist');
+        $classH2.textContent = 'New Entry';
         const $formElements = $idJournalEntry.elements;
         const formObject = {};
         formObject.entryId = data.nextEntryId;
