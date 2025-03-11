@@ -1,3 +1,4 @@
+// interfaces
 interface FormElements extends HTMLFormControlsCollection {
   title: HTMLInputElement;
   photo: HTMLInputElement;
@@ -11,6 +12,7 @@ interface FormObject {
   notes?: string;
 }
 
+// DOM objects
 const $idImageUrl = document.querySelector('#photo-url') as HTMLInputElement;
 const $image = document.querySelector('.image') as HTMLImageElement;
 const $idJournalEntry = document.querySelector(
@@ -28,6 +30,7 @@ const $classTextInput = document.querySelector('.text-input');
 const $idNotes = document.querySelector('#notes');
 const $classH2 = document.querySelector('.h2');
 
+// Event Listeners
 $idImageUrl?.addEventListener('input', () => {
   if (!$idImageUrl) {
     $image.src = 'images/placeholder-image-square.jpg';
@@ -65,7 +68,6 @@ $idJournalEntry.addEventListener('submit', (event: Event) => {
     formObject.notes = $formElements.notes.value;
     const indexToUpdate = data.entries.length - formObject?.entryId;
     data.entries.splice(Number(indexToUpdate), 1, formObject);
-
     writeData();
     $idJournalEntry.reset();
     const li = renderEntry(formObject);
@@ -81,6 +83,56 @@ $idJournalEntry.addEventListener('submit', (event: Event) => {
   }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  if (data.nextEntryId === 1) {
+    noEntries();
+    return;
+  }
+  data.view = 'entries';
+  for (const i of data.entries) {
+    const li = renderEntry(i);
+    $classJournalEntries?.appendChild(li);
+  }
+  viewSwap(data.view);
+});
+
+$classEntriesAnchor?.addEventListener('click', (event: Event): void => {
+  event.preventDefault();
+  data.view = 'entries';
+  viewSwap(data.view);
+});
+
+$classNewEntry?.addEventListener('click', (event: Event): void => {
+  event.preventDefault();
+  viewSwap('entry-form');
+});
+
+$classJournalEntries?.addEventListener('click', (event: Event) => {
+  const eventTarget = event.target as HTMLElement;
+  if (eventTarget?.tagName === 'I') {
+    const et = eventTarget;
+    const closestLi = et.closest('.entry');
+    if (closestLi === null) throw new Error('closest Li does not exist');
+    const id = closestLi?.dataset.entryId;
+    const journalEntries: any[] = data.entries;
+    const matchingJournal = journalEntries.find(
+      (journal) => journal.entryId === Number(id),
+    );
+    data.editing = matchingJournal;
+    writeData();
+    viewSwap('entry-form');
+  }
+  $image.src = data?.editing?.photo;
+  if (!$classTextInput) throw new Error('Notes does not exist');
+  $classTextInput.value = data?.editing?.title;
+  $idImageUrl.value = data?.editing?.photo;
+  if (!$idNotes) throw new Error('Notes does not exist');
+  $idNotes.textContent = data?.editing?.notes;
+  if (!$classH2) throw new Error('H2 does not exist');
+  $classH2.textContent = 'Edit Entry';
+});
+
+// Functions
 function renderEntry(entry: FormObject): HTMLLIElement {
   const $tagLi = document.createElement('li');
   $tagLi.className = 'entry';
@@ -128,19 +180,6 @@ function showEntries(): void {
   $classNoPosts.classList.add('hidden');
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (data.nextEntryId === 1) {
-    noEntries();
-    return;
-  }
-  data.view = 'entries';
-  for (const i of data.entries) {
-    const li = renderEntry(i);
-    $classJournalEntries?.appendChild(li);
-  }
-  viewSwap(data.view);
-});
-
 function viewSwap(view: string): void {
   data.view = view;
   writeData();
@@ -154,39 +193,3 @@ function viewSwap(view: string): void {
     $dataViewEntries?.classList.remove('hidden');
   }
 }
-
-$classEntriesAnchor?.addEventListener('click', (event: Event): void => {
-  event.preventDefault();
-  data.view = 'entries';
-  viewSwap(data.view);
-});
-
-$classNewEntry?.addEventListener('click', (event: Event): void => {
-  event.preventDefault();
-  viewSwap('entry-form');
-});
-
-$classJournalEntries?.addEventListener('click', (event: Event) => {
-  const eventTarget = event.target as HTMLElement;
-  if (eventTarget?.tagName === 'I') {
-    const et = eventTarget;
-    const closestLi = et.closest('.entry');
-    if (!closestLi) throw new Error('closes Li does not exist');
-    const id = closestLi?.dataset.entryId;
-    const journalEntries: any[] = data.entries;
-    const matchingJournal = journalEntries.find(
-      (journal) => journal.entryId === Number(id),
-    );
-    data.editing = matchingJournal;
-    writeData();
-    viewSwap('entry-form');
-  }
-  $image.src = data?.editing?.photo;
-  if (!$classTextInput) throw new Error('Notes does not exist');
-  $classTextInput.value = data?.editing?.title;
-  $idImageUrl.value = data?.editing?.photo;
-  if (!$idNotes) throw new Error('Notes does not exist');
-  $idNotes.value = data?.editing?.notes;
-  if (!$classH2) throw new Error('H2 does not exist');
-  $classH2.textContent = 'Edit Entry';
-});
