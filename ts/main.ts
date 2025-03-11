@@ -26,8 +26,10 @@ const $dataViewEntries = document.querySelector('.entries');
 const $classEntriesAnchor = document.querySelector('.entries-anchor');
 const $classNewEntry = document.querySelector('.new-anchor');
 const $classJournalEntries = document.querySelector('.journal-entries');
-const $classTextInput = document.querySelector('.text-input');
-const $idNotes = document.querySelector('#notes');
+const $classTextInput = document.querySelector(
+  '.text-input',
+) as HTMLInputElement;
+const $idNotes = document.querySelector('#notes') as HTMLTextAreaElement;
 const $classH2 = document.querySelector('.h2');
 
 // Event Listeners
@@ -66,6 +68,7 @@ $idJournalEntry.addEventListener('submit', (event: Event) => {
     formObject.title = $formElements.title.value;
     formObject.photo = $formElements.photo.value;
     formObject.notes = $formElements.notes.value;
+    if (!formObject.entryId) throw new Error('forObject.entryId is null');
     const indexToUpdate = data.entries.length - formObject?.entryId;
     data.entries.splice(Number(indexToUpdate), 1, formObject);
     writeData();
